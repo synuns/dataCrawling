@@ -33,17 +33,13 @@ def getPelicanaAddress(result):
     
     for page_idx in count():
         
-        Pelicana_URL = 'http://www.pelicana.co.kr/store/stroe_search.html?&branch_name=&gu=&si=&page=%s' \
-                       % str(page_idx + 1)
+        Pelicana_URL = f'http://www.pelicana.co.kr/store/stroe_search.html?&branch_name=&gu=&si=&page={page_idx+1}'
         print ("[Pericana Page] : [%s]" % (str(page_idx + 1)))
 
         rcv_data = get_request_url(Pelicana_URL)
         soupData = BeautifulSoup(rcv_data, 'html.parser')
-        
         store_table = soupData.find('table', attrs={'class':'table mt20'})
-       
         tbody = store_table.find('tbody')
-               
         bEnd = True
         for store_tr in tbody.findAll('tr'):            
             bEnd = False
@@ -67,7 +63,7 @@ def cswin_pericana():
     print('PERICANA ADDRESS CRAWLING START')
     getPelicanaAddress(result)
     pericana_table = pd.DataFrame(result, columns=('store', 'sido', 'gungu', 'store_address'))
-    pericana_table.to_csv("./pericana.csv", encoding="cp949", mode='w', index=True)
+    pericana_table.to_csv("./data/pericana.csv", encoding="cp949", mode='w', index=True)
     del result[:]
     print('FINISHED')
     

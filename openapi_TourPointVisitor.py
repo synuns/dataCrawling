@@ -104,7 +104,7 @@ def csWin_TourPoint():
                 else:
                     break
     
-    with open('./%s_관광지입장정보_%d_%d.json' % (sido, nStartYear, nEndYear), 'w', encoding='utf8') as outfile:
+    with open('./data/%s_관광지입장정보_%d_%d.json' % (sido, nStartYear, nEndYear), 'w', encoding='utf8') as outfile:
         retJson = json.dumps(jsonResult,
                         indent=4, sort_keys=True,
                         ensure_ascii=False)

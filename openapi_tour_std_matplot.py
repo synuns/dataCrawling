@@ -98,7 +98,7 @@ def main():
         print('데이터가 전달되지 않았습니다. 공공데이터포털의 서비스 상태를 확인하기 바랍니다.')
     else:
         # 파일저장 1 : json 파일
-        with open('./%s_%s_%d_%s.json' % (natName, ed, nStartYear, dataEND), 'w', encoding='utf8') as outfile:
+        with open('./data/%s_%s_%d_%s.json' % (natName, ed, nStartYear, dataEND), 'w', encoding='utf8') as outfile:
             jsonFile = json.dumps(jsonResult, indent=4, sort_keys=True, ensure_ascii=False)
             outfile.write(jsonFile)
         # 파일저장 2 : csv 파일

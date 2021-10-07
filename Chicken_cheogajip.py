@@ -7,12 +7,9 @@ import xml.etree.ElementTree as ET
 import ssl
 
 def get_request_url(url, enc='utf-8'):
-    
     req = urllib.request.Request(url)
-
     try:
         ssl._create_default_https_context = ssl._create_unverified_context
-
         response = urllib.request.urlopen(req)
         if response.getcode() == 200:
             try:
@@ -20,9 +17,7 @@ def get_request_url(url, enc='utf-8'):
                 ret = rcv.decode(enc)
             except UnicodeDecodeError:
                 ret = rcv.decode(enc, 'replace')    
-            
             return ret
-            
     except Exception as e:
         print(e)
         print("[%s] Error for URL : %s" % (datetime.datetime.now(), url))
@@ -44,28 +39,20 @@ def CheogajipAddress(result):
             store_address = tr_tag[5]
             store_sido_gu = store_address.split()[:2]
             result.append([store_name] + store_sido_gu + [store_address])
-           
-
-     #return
-    
-   
+    return
 
 
 
 def cswin_Cheogajip():
-
     result = []
-
     print('CHEOGAJIP ADDRESS CRAWLING START')
     CheogajipAddress(result)
     cheogajip_table = pd.DataFrame(result, columns=('store', 'sido', 'gungu', 'store_address'))
-    cheogajip_table.to_csv("./cheogajip.csv", encoding="cp949", mode='w', index=True)
+    cheogajip_table.to_csv("./data/cheogajip.csv", encoding="cp949", mode='w', index=True)
     del result[:]
-
-
     print('FINISHED')
-    
+
 if __name__ == '__main__':
-     cswin_Cheogajip()
+    cswin_Cheogajip()
 
 
