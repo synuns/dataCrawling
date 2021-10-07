@@ -130,3 +130,8 @@ dmypy.json
 
 # api key module
 config.py
+
+# product
+/data
+.csv
+.json
