@@ -4,9 +4,10 @@ import urllib.request
 import datetime
 import time
 import json
+import config
 
-client_id = '본인것 입력'
-client_secret = '본인것 입력'
+client_id = 'config.client_id'
+client_secret = 'config.client_secret'
 
 
 #[CODE 1]
