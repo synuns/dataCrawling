@@ -86,7 +86,7 @@ dayNightCode = {'1':'주', '2':'야'}
 dfht_ty_df = dfht_ty_df.replace({'주야' : dayNightCode})
 dfht_ty_df = dfht_ty_df.replace({'가해자' : vehicleTypeCode})
 dfht_ty_df = dfht_ty_df.replace({'피해자' : vehicleTypeCode})
-dfht_ty_df.to_csv('./output/주야구분.csv', index=False)
+dfht_ty_df.to_csv('./output/주야구분.csv', index=False)                         
 
 
 # In[11]:
