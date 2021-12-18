@@ -1,9 +1,9 @@
 # dataCrawling
-data crawling lecture source code
+4학년 2학기 데이터크롤링 수업 자료
 
 <br/>
 
-## 📄Files
+## 📄Examples
 
 <br/>
 
@@ -61,5 +61,19 @@ updated at 2021.10.07
 페리카나 매장 정보 크롤링
 
 updated at 2021.10.07
+
+<br/>
+
+## 🏍Midterm Project
+
+<br/>
+
+
+<br/>
+
+## 📰Final Project
+
+<br/>
+
 
 <br/>
