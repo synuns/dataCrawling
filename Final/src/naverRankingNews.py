@@ -6,10 +6,10 @@ from datetime import date, timedelta, datetime
 def getRankingNews(officeId, fromDays):
     result = []
     today = datetime.today()
-    date_list = [(today - timedelta(days=x)).strftime("%Y%m%d") for x in range(1, fromDays)]
+    date_list = [(today - timedelta(days=x)) for x in range(1, fromDays)]
     for mediaName, mediaCode in officeId.items():
         for day in date_list:
-            url = f'https://news.naver.com/main/ranking/office.naver?officeId={mediaCode}&date={day}'
+            url = f'https://news.naver.com/main/ranking/office.naver?officeId={mediaCode}&date={day.strftime("%Y%m%d")}'
             print(url)
             html = urllib.request.urlopen(url)
             soup = BeautifulSoup(html, 'html.parser')
@@ -17,14 +17,15 @@ def getRankingNews(officeId, fromDays):
             rankingNews = soup.find('div', attrs={'class' : 'rankingnews_box_inner'})
             newsTitles = rankingNews.find_all('a', attrs={'class' : 'list_title nclicks(\'RBP.drnknws\')'})
             newsViews = rankingNews.find_all('span', attrs={'class' : 'list_view'})
-            for newsTitle, newsView in zip(newsTitles, newsViews):
-                result.append([mediaName, day, newsTitle.text, newsView.text])
+            description = rankingNews.find_all('p', attrs={'class' : 'list_writing'})
+            for newsTitle, newsView, description in zip(newsTitles, newsViews, description):
+                result.append([mediaName, day.strftime('%Y-%m-%d'), newsTitle.text, newsView.text, description.text])
     return result
 
 def exportResultToCsv(data):
-    header = ['언론사', '날짜', '제목', '조회수']
+    header = ['media', 'date', 'title', 'description', 'views']
     news_df = pd.DataFrame(data, columns=header)
-    news_df.to_csv('./Final/output/rankingNews.csv', encoding='utf-8', mode='w', index=True)
+    news_df.to_csv('./Final/output/rankingNewsDesc.csv', encoding='utf-8', mode='w', index=True)
 
 def naverRankingNews():
     officeId = {
@@ -34,7 +35,7 @@ def naverRankingNews():
         "한겨레" : "028",
         "경향일보" : "032",
     }
-    days = 365
+    days = 366
     
     print('Naver ranking news crawling START==========================================')
     result = getRankingNews(officeId, days)
