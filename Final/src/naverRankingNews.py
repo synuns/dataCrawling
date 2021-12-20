@@ -16,10 +16,10 @@ def getRankingNews(officeId, fromDays):
 
             rankingNews = soup.find('div', attrs={'class' : 'rankingnews_box_inner'})
             newsTitles = rankingNews.find_all('a', attrs={'class' : 'list_title nclicks(\'RBP.drnknws\')'})
-            newsViews = rankingNews.find_all('span', attrs={'class' : 'list_view'})
             description = rankingNews.find_all('p', attrs={'class' : 'list_writing'})
+            newsViews = rankingNews.find_all('span', attrs={'class' : 'list_view'})
             for newsTitle, newsView, description in zip(newsTitles, newsViews, description):
-                result.append([mediaName, day.strftime('%Y-%m-%d'), newsTitle.text, newsView.text, description.text])
+                result.append([mediaName, day.strftime('%Y-%m-%d'), newsTitle.text, description.text, newsView.text])
     return result
 
 def exportResultToCsv(data):
