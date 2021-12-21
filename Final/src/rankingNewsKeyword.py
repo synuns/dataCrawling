@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[19]:
 
 
 import re
@@ -14,13 +14,13 @@ file = 'rankingNewsDesc.csv'
 data_frame = pd.read_csv(file, sep=',',header = 0, engine = 'python',encoding = "utf-8")
 
 
-# In[10]:
+# In[20]:
 
 
 data_frame
 
 
-# In[51]:
+# In[21]:
 
 
 data_frame['title'] = data_frame['title'].apply(lambda x : re.sub(r'[^ ㄱ-ㅣ가-힣]+', " ", str(x)))
@@ -29,7 +29,7 @@ data_frame['description'] = data_frame['description'].apply(lambda x : re.sub(r'
 data_frame.head()
 
 
-# In[52]:
+# In[22]:
 
 
 title_keyword = []
@@ -42,20 +42,35 @@ for item in data_frame['description']:
     desc_keyword.append(nlp.nouns(item))
 
 
-# In[56]:
+# In[23]:
 
 
-data_frame['title'] = title_keyword
-data_frame['description'] = desc_keyword
+title_keyword_except_one = []
+desc_keyword_except_one = []
+
+for keywords in title_keyword:
+    _keyword = [keyword for keyword in keywords if len(keyword) > 1]
+    title_keyword_except_one.append(_keyword)
+
+for keywords in desc_keyword:
+    _keyword = [keyword for keyword in keywords if len(keyword) > 1]
+    desc_keyword_except_one.append(_keyword)
 
 
-# In[57]:
+# In[26]:
+
+
+data_frame['title'] = title_keyword_except_one
+data_frame['description'] = desc_keyword_except_one
+
+
+# In[27]:
 
 
 data_frame
 
 
-# In[58]:
+# In[28]:
 
 
 data_frame.to_csv('./rankingNewsKeyword.csv', sep=',')
